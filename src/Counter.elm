@@ -1,4 +1,4 @@
-module Main exposing (main)
+module Counter exposing (Model, Msg, init, update, view)
 
 import Browser
 import Html exposing (Html, button, text)
@@ -8,10 +8,15 @@ import Html.Events as Events
 main : Program () Model Msg
 main =
     Browser.sandbox
-        { init = 0
+        { init = init
         , update = update
         , view = view
         }
+
+
+init : Model
+init =
+    0
 
 
 type alias Model =
