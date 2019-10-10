@@ -1,18 +1,24 @@
-module Main exposing (main)
+module ElmUICounter exposing (Model, Msg, init, update, view)
 
 import Browser
 import Element
 import Element.Events as Events
 import Element.Input as Input
+import Html exposing (Html)
 
 
 main : Program () Model Msg
 main =
     Browser.sandbox
-        { init = 0
+        { init = init
         , update = update
-        , view = Element.layout (styleByGroup GlobalStyle) << view
+        , view = view
         }
+
+
+init : Model
+init =
+    0
 
 
 type StyleGroup
@@ -53,8 +59,8 @@ update msg model =
             model + 1
 
 
-view : Model -> Element.Element Msg
-view model =
+viewInner : Model -> Element.Element Msg
+viewInner model =
     Element.column []
         [ Input.button (styleByGroup ButtonStyle)
             { onPress = Just Decrement
@@ -66,3 +72,8 @@ view model =
             , label = Element.text "+"
             }
         ]
+
+
+view : Model -> Html Msg
+view =
+    Element.layout (styleByGroup GlobalStyle) << viewInner
