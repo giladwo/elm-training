@@ -1,4 +1,4 @@
-module HelloWorld exposing (main)
+module HelloWorld exposing (Model, Msg, init, update, view)
 
 import Browser
 import Html exposing (Html, div, text)
