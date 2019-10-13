@@ -1,5 +1,6 @@
 module Main exposing (Model, Msg(..), main, update, view)
 
+import AdvancedCounter
 import Browser
 import Counter
 import ElmUICounter
@@ -18,6 +19,7 @@ main =
 
 type alias Model =
     { counterModel : Counter.Model
+    , advancedCounterModel : AdvancedCounter.Model
     , elmUiCounterModel : ElmUICounter.Model
     }
 
@@ -25,12 +27,14 @@ type alias Model =
 type Msg
     = NoOp
     | CounterMsg Counter.Msg
+    | AdvancedCounterMsg AdvancedCounter.Msg
     | ElmUICounterMsg ElmUICounter.Msg
 
 
 init : Model
 init =
     { counterModel = Counter.init
+    , advancedCounterModel = AdvancedCounter.init
     , elmUiCounterModel = ElmUICounter.init
     }
 
@@ -44,6 +48,9 @@ update msg model =
         CounterMsg subMsg ->
             { model | counterModel = Counter.update subMsg model.counterModel }
 
+        AdvancedCounterMsg subMsg ->
+            { model | advancedCounterModel = AdvancedCounter.update subMsg model.advancedCounterModel }
+
         ElmUICounterMsg subMsg ->
             { model | elmUiCounterModel = ElmUICounter.update subMsg model.elmUiCounterModel }
 
@@ -56,4 +63,6 @@ view model =
         , Html.map CounterMsg <| Counter.view model.counterModel
         , Html.br [] []
         , Html.map ElmUICounterMsg <| ElmUICounter.view model.elmUiCounterModel
+        , Html.br [] []
+        , Html.map AdvancedCounterMsg <| AdvancedCounter.view model.advancedCounterModel
         ]
