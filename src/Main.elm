@@ -19,7 +19,6 @@ main =
 type alias Model =
     { counterModel : Counter.Model
     , elmUiCounterModel : ElmUICounter.Model
-    , helloWorldModel : HelloWorld.Model
     }
 
 
@@ -27,14 +26,12 @@ type Msg
     = NoOp
     | CounterMsg Counter.Msg
     | ElmUICounterMsg ElmUICounter.Msg
-    | HelloWorldMsg HelloWorld.Msg
 
 
 init : Model
 init =
     { counterModel = Counter.init
     , elmUiCounterModel = ElmUICounter.init
-    , helloWorldModel = HelloWorld.init
     }
 
 
@@ -50,14 +47,11 @@ update msg model =
         ElmUICounterMsg subMsg ->
             { model | elmUiCounterModel = ElmUICounter.update subMsg model.elmUiCounterModel }
 
-        HelloWorldMsg subMsg ->
-            { model | helloWorldModel = HelloWorld.update subMsg model.helloWorldModel }
-
 
 view : Model -> Html.Html Msg
 view model =
     Html.div []
-        [ Html.map HelloWorldMsg <| HelloWorld.view model.helloWorldModel
+        [ HelloWorld.view
         , Html.br [] []
         , Html.map CounterMsg <| Counter.view model.counterModel
         , Html.br [] []
